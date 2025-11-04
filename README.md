@@ -18,8 +18,10 @@ cmse492_project/
 │   └── processed/           <- Cleaned and preprocessed data ready for modeling
 │
 ├── notebooks/
-│   └── exploratory/         <- Jupyter notebooks for exploratory data analysis (EDA)
+│   └── exploratory/         <- Jupyter notebook for exploratory data analysis (EDA) 
 │
+├── folders                  <- stores project proposal
+|
 ├── src/
 │   ├── preprocessing/       <- Data cleaning and feature engineering scripts
 │   ├── models/              <- Machine learning model definitions and training scripts
