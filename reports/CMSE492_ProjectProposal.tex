@@ -33,6 +33,7 @@
 \begin{document}
 
 \title{Diabetes Detection Project}
+
 \author{Nick Sleeper}
 \email{sleepern@msu.edu}
 \affiliation{Department of Computational Mathematics, Science and Engineering\\
@@ -40,20 +41,23 @@ Michigan State University, East Lansing, MI 48824}
 \date{\today}
 
 \begin{abstract}
-Diabetes is a dangerous chronic disease whose complications can lead to severe cardiovascular, neurological, and renal conditions if not detected early. As its global prevalence continues to rise, the ability to identify individuals at high risk has become an essential step toward effective prevention and management. This project aims to develop a machine learning model that predicts the likelihood of diabetes diagnosis using demographic, behavioral, and clinical indicators. 
+Diabetes is a dangerous chronic disease whose complications can lead to severe cardiovascular, neurological, and renal conditions if not detected early. As its global prevalence continues to rise, the ability to identify individuals at high risk has become an essential step toward effective prevention and management. This project aims to develop a machine learning model that predicts the likelihood of diabetes diagnosis using demographic, behavioral, and clinical indicators.
 
-The dataset used—\textit{Diabetes Health Indicators Dataset} (100{,}000 records, 31 features)—is a synthetic dataset modeled after the CDC Behavioral Risk Factor Surveillance System (BRFSS). A supervised classification approach is employed. After exploratory analysis and preprocessing (encoding, scaling, and leakage removal), a logistic regression model was trained as a baseline. Preliminary results achieved an accuracy of 0.861 and F1-score of 0.885, showing strong predictive potential even with a simple linear model.
+The dataset used---\textit{Diabetes Health Indicators Dataset} (100{,}000 records, 31 features)---is a synthetic dataset modeled after the CDC Behavioral Risk Factor Surveillance System (BRFSS). A supervised classification approach is employed. After exploratory analysis and preprocessing (encoding, scaling, and leakage removal), a logistic regression model was trained as a baseline. Preliminary results achieved an accuracy of 0.861 and F1-score of 0.885, showing strong predictive potential even with a simple linear model.
 
-The project will extend this baseline to include ensemble models and interpretability analysis. The expected outcome is a clear, reproducible, and interpretable machine learning pipeline for diabetes-risk prediction.
+The project will extend this baseline by comparing three models of increasing complexity (Logistic Regression, Random Forest, Gradient Boosting) and reporting their performance under a consistent evaluation framework. The expected outcome is a clear, reproducible, and interpretable machine learning pipeline for diabetes-risk prediction.
 \end{abstract}
 
 \maketitle
+
+\vspace{-8pt}
+\noindent \textbf{Repository:} \url{https://github.com/sleepernj/cmse492_project}
 
 %%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
 \section{Background and Motivation}
 %%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
 
-Diabetes is a chronic metabolic disease characterized by elevated blood glucose levels that can lead to serious health complications including cardiovascular disease, neuropathy, kidney failure, and vision impairment. It affects hundreds of millions of people worldwide, and its prevalence continues to rise each year. This project holds personal significance to me as a Type 1 diabetic who has experienced firsthand the lifelong challenges of managing blood sugar, medication, and long-term health risks. Understanding how data-driven methods can improve early detection and prevention is both an academic and personal motivation for pursuing this work.
+Diabetes is a chronic metabolic disease characterized by elevated blood glucose levels that can lead to serious health complications including cardiovascular disease, neuropathy, kidney failure, and vision impairment. It affects hundreds of millions of people worldwide, and its prevalence continues to rise each year. This project holds personal significance to me as a Type~1 diabetic who has experienced firsthand the lifelong challenges of managing blood sugar, medication, and long-term health risks. Understanding how data-driven methods can improve early detection and prevention is both an academic and personal motivation for pursuing this work.
 
 \subsection*{Why this problem is important}
 Early detection and risk assessment are critical for preventing or delaying the onset of diabetes complications. Traditional diagnostic methods rely on blood tests performed intermittently, which can miss individuals at early risk stages. A predictive model that integrates behavioral and physiological indicators could allow for continuous risk assessment and earlier intervention.
@@ -71,19 +75,19 @@ Existing work (e.g., on the Pima Indians Diabetes dataset and BRFSS data) has ap
 \section{Data Description}
 %%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
 
-\subsection*{Data Origin}
-The dataset is the \textit{Diabetes Health Indicators Dataset}, published on Kaggle by Mohan Krishna Thalla (2023). It was designed to simulate realistic health patterns based on BRFSS data. The dataset includes 100{,}000 samples and 31 features representing demographic, behavioral, and medical indicators such as age, BMI, glucose, cholesterol, and blood pressure. The target variable is \texttt{diagnosed\_diabetes} (0 = No, 1 = Yes).
+\subsection*{Data Origin and Provenance}
+The dataset is the \textit{Diabetes Health Indicators Dataset}, published on Kaggle by Mohan Krishna Thalla (2023). It was designed to simulate realistic health patterns based on the CDC’s Behavioral Risk Factor Surveillance System (BRFSS), a nationwide survey program that monitors health-related risk behaviors, chronic health conditions, and use of preventive services. BRFSS collects data via telephone surveys; the synthetic dataset mirrors BRFSS-like distributions while preserving privacy. The target variable is \texttt{diagnosed\_diabetes} (0 = No, 1 = Yes).
 
 \subsection*{Dataset Characteristics}
 \begin{itemize}
     \item \textbf{Samples:} 100{,}000
-    \item \textbf{Features:} 31 (24 numerical, 7 categorical)
+    \item \textbf{Features:} 31 total (24 numerical, 7 categorical)
     \item \textbf{Target:} \texttt{diagnosed\_diabetes}
-    \item \textbf{Missing Values:} None detected
+    \item \textbf{Missing Values:} None detected in any column
 \end{itemize}
 
-\subsection*{Data Quality and Completeness}
-A missing-values heatmap (Figure \ref{fig:missing_values}) confirmed that all 31 features are complete, with no null or invalid entries. The dataset is clean and ready for modeling.
+\subsection*{Data Quality and Key Properties}
+A missing-values heatmap (Fig.~\ref{fig:missing_values}) confirmed all 31 features are complete. The target shows moderate imbalance ($\sim$60\% diabetic) (Fig.~\ref{fig:class_balance}). Additional EDA finds physiologically consistent relationships: higher glucose and HbA1c associate with diabetes status, BMI is centered near 25--26, and diabetics tend to be older on average.
 
 \begin{figure}[H]
     \centering
@@ -92,59 +96,36 @@ A missing-values heatmap (Figure \ref{fig:missing_values}) confirmed that all 31
     \label{fig:missing_values}
 \end{figure}
 
-\subsection*{Class Balance}
-The target variable exhibits moderate imbalance: approximately 60\% of samples are diabetic (1), and 40\% are non-diabetic (0). Figure \ref{fig:class_balance} visualizes the distribution.
-
 \begin{figure}[H]
     \centering
     \includegraphics[width=0.8\linewidth]{figures/class_balance.png}
-    \caption{Class balance for the diabetes diagnosis target variable.}
+    \caption{Class balance for the diabetes diagnosis target variable (0 vs 1).}
     \label{fig:class_balance}
 \end{figure}
 
-\subsection*{Diabetes Stage Distribution}
-Although excluded from modeling to prevent data leakage, the \texttt{diabetes\_stage} feature provides important contextual insight. The majority of cases are Type 2 or Pre-Diabetes, consistent with real-world prevalence (Figure \ref{fig:stage_distribution}).
-
-\begin{figure}[H]
-    \centering
-    \includegraphics[width=0.8\linewidth]{figures/diabetes_stage_distribution.png}
-    \caption{Distribution of diabetes stages in the dataset.}
-    \label{fig:stage_distribution}
-\end{figure}
-
-\subsection*{Feature Distributions and Relationships}
-Exploratory analysis revealed clear and physiologically meaningful patterns.  
-Figure \ref{fig:glucose_hba1c} shows a strong relationship between fasting glucose and HbA1c values—two biomarkers central to diabetes diagnosis.  
+\subsection*{Additional EDA Figures Referenced in Text}
+Fig.~\ref{fig:glucose_hba1c} shows the glucose--HbA1c relationship by diagnosis; Fig.~\ref{fig:bmi_distribution} shows BMI distribution; Fig.~\ref{fig:age_by_diabetes} compares age by diagnosis; Figs.~\ref{fig:correlation_with_target}--\ref{fig:correlation_matrix} summarize correlations.
 
 \begin{figure}[H]
     \centering
     \includegraphics[width=0.8\linewidth]{figures/glucose_hba1c_scatter.png}
-    \caption{Relationship between fasting glucose and HbA1c, separated by diabetes diagnosis.}
+    \caption{Fasting glucose vs.\ HbA1c by diabetes diagnosis.}
     \label{fig:glucose_hba1c}
 \end{figure}
-
-Figure \ref{fig:bmi_distribution} illustrates the BMI distribution, centered around 25.6 kg/m², which reflects a healthy-to-overweight adult population.  
 
 \begin{figure}[H]
     \centering
     \includegraphics[width=0.8\linewidth]{figures/bmi_distribution.png}
-    \caption{Distribution of Body Mass Index (BMI) across individuals.}
+    \caption{Distribution of BMI across the population.}
     \label{fig:bmi_distribution}
 \end{figure}
-
-Age, a key risk factor, shows a pronounced difference between groups (Figure \ref{fig:age_by_diabetes}).  
-Individuals diagnosed with diabetes are notably older on average.
 
 \begin{figure}[H]
     \centering
     \includegraphics[width=0.8\linewidth]{figures/age_by_diabetes.png}
-    \caption{Age distribution by diabetes diagnosis status.}
+    \caption{Age by diabetes status (0 = No, 1 = Yes).}
     \label{fig:age_by_diabetes}
 \end{figure}
-
-\subsection*{Correlation Analysis}
-Correlation analysis (Figures \ref{fig:correlation_with_target}–\ref{fig:correlation_matrix}) identified strong positive relationships between diabetes diagnosis and both glucose measures and HbA1c, while moderate positive associations were observed for BMI and blood pressure.  
-The matrix confirms that the dataset’s relationships align with known clinical expectations.
 
 \begin{figure}[H]
     \centering
@@ -156,90 +137,124 @@ The matrix confirms that the dataset’s relationships align with known clinical
 \begin{figure}[H]
     \centering
     \includegraphics[width=0.8\linewidth]{figures/correlation_matrix.png}
-    \caption{Correlation matrix of all numerical health indicators.}
+    \caption{Correlation matrix of numerical health indicators.}
     \label{fig:correlation_matrix}
 \end{figure}
 
-Together, these analyses confirm the dataset is statistically coherent, realistic, and appropriate for supervised machine learning tasks.
-
 %%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
-\section{Preprocessing}
+\section{Proposed Methodology}
 %%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
 
-Preprocessing was implemented in Python using \texttt{scikit-learn} pipelines to ensure consistency and reproducibility.  
-The following steps were performed:
+This is a \textbf{supervised binary classification} task to predict whether an individual is diagnosed with diabetes (\texttt{diagnosed\_diabetes}=1) or not (0). The approach will systematically compare three models of increasing complexity using identical preprocessing and evaluation protocols.
 
+\textbf{Preprocessing (implemented):} 
 \begin{enumerate}
-    \item \textbf{Leakage Removal:} Excluded \texttt{diabetes\_stage} and \texttt{diabetes\_risk\_score}.  
-    \item \textbf{Encoding:} Applied \texttt{OneHotEncoder} to categorical variables (\texttt{gender}, \texttt{ethnicity}, \texttt{education\_level}, \texttt{income\_level}, \texttt{employment\_status}, \texttt{smoking\_status}).  
-    \item \textbf{Scaling:} Standardized numerical features with \texttt{StandardScaler}.  
-    \item \textbf{Split:} Conducted an 80/20 stratified train-test split.  
+    \item Remove leakage features: \texttt{diabetes\_stage}, \texttt{diabetes\_risk\_score}.
+    \item One-hot encode categorical variables (\texttt{gender}, \texttt{ethnicity}, \texttt{education\_level}, \texttt{income\_level}, \texttt{employment\_status}, \texttt{smoking\_status}).
+    \item Standardize numerical features.
+    \item Stratified 80/20 train/test split.
 \end{enumerate}
 
-No imputation or outlier removal was necessary due to the dataset’s completeness and synthetic design.  
-This standardized preprocessing ensures that transformations applied during training are identically reproduced during inference.
+\subsection*{Model family (increasing complexity) \& justification}
+\begin{enumerate}
+    \item \textbf{Logistic Regression (Linear Baseline).} 
+    \emph{Complexity:} Linear decision boundary; $O(pd)$ parameters. 
+    \emph{Why:} Interpretable coefficients, fast to train, strong baseline.
+    
+    \item \textbf{Random Forest (Nonlinear Bagging Ensemble).} 
+    \emph{Complexity:} $O(T \cdot \text{tree\_size})$ with $T$ trees. 
+    \emph{Why:} Captures nonlinear interactions and reduces overfitting.
+    
+    \item \textbf{Gradient Boosting (Nonlinear Boosting Ensemble).} 
+    \emph{Complexity:} Sequential trees with learning rate; highest representational power.
+    \emph{Why:} Strong performance for structured data with mixed types.
+\end{enumerate}
 
-%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
-\section{Machine Learning Task and Objective}
-%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
+\subsection*{Loss functions / training objective}
+\textbf{Logistic Regression:} Regularized log-loss  
+\[
+\mathcal{L}(\mathbf{w}) = -\frac{1}{n}\sum_{i=1}^n [y_i \log \hat{p}_i + (1-y_i)\log(1-\hat{p}_i)] + \lambda\lVert \mathbf{w}\rVert_2^2
+\]
+with $\hat{p}_i = \sigma(\mathbf{w}^\top \mathbf{x}_i)$.  
+\textbf{Random Forest:} Minimizes Gini impurity; combines trees via majority vote.  
+\textbf{Gradient Boosting:} Fits trees to negative gradients of log-loss sequentially.
 
-The goal is binary classification: predicting whether an individual is diagnosed with diabetes (\texttt{diagnosed\_diabetes}=1) or not (0).  
-Machine learning enables detection of nonlinear and multivariate patterns that traditional threshold-based diagnostics (e.g., fixed glucose cutoffs) cannot capture.  
-The project begins with interpretable linear models and will expand to ensemble methods for improved accuracy.
-
-%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
-\section{Models and Baseline Results}
-%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
-
-Two simple baselines were established in Part B:
-
+\subsection*{Planned hyperparameters and search}
 \begin{itemize}
-    \item \textbf{Majority-Class Predictor:} always predicts the most frequent class.
-    \item \textbf{Logistic Regression:} trained on standardized and encoded features.
+    \item Logistic: penalty = L2, $C \in \{0.1, 1, 10\}$, max\_iter = 1000.
+    \item Random Forest: $n\_estimators \in \{200, 400\}$, max\_depth $\in \{8, 12, 16\}$.
+    \item Gradient Boosting: learning\_rate $\in \{0.05, 0.1\}$, $n\_estimators \in \{200, 400\}$.
+\end{itemize}
+5-fold cross-validation will identify the optimal hyperparameters.
+
+\subsection*{Comparison of at least 3 models}
+All three models will be compared using identical splits, metrics, and preprocessing.  
+Complexity ordering: Logistic (linear), Random Forest (nonlinear bagging), Gradient Boosting (sequential boosting).  
+Metrics include Accuracy, Precision, Recall, F1, and ROC–AUC.
+
+\subsection*{Methodological flow (required description)}
+The methodological flow proceeds as follows: \textbf{data ingestion → preprocessing → model training → cross-validation → evaluation → interpretability analysis}.  
+Each model receives identical preprocessed inputs to ensure fairness, and evaluation results will guide final model selection.
+
+%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
+\section{Evaluation Framework}
+%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
+
+\textbf{Metrics (with justification):} 
+F1 (primary; balances precision/recall under moderate class imbalance), Accuracy (overall), Precision and Recall (clinical trade-offs), and ROC–AUC (threshold-agnostic separability).
+
+\textbf{Data split:} Stratified 80/20 train/test, with 5-fold CV on the training data.
+
+\textbf{Baselines:} Majority-class predictor and Logistic Regression (implemented).\\
+\emph{Preliminary baselines:}
+\begin{itemize}
+    \item Majority-Class: Accuracy = 0.600, F1 = 0.750
+    \item Logistic Regression: Accuracy = 0.861, F1 = 0.885
 \end{itemize}
 
-\textbf{Results:}
-\begin{itemize}
-    \item Majority-Class Accuracy: 0.600, F1 = 0.750
-    \item Logistic Regression Accuracy: 0.861, F1 = 0.885
-\end{itemize}
+\textbf{Success criteria:} 
+Gradient Boosting should improve F1 by $\ge$0.01 and maintain Recall $\ge$0.88.  
+If performance gain is marginal, the simpler logistic model will be preferred for interpretability.
 
-The logistic model shows strong discriminative ability with balanced recall and precision across both classes, indicating a valid baseline for further model development.  
-Future work will implement Random Forest and Gradient Boosting classifiers to explore nonlinear relationships and feature importance.
+\textbf{Model-selection rationale:}  
+The model achieving the highest mean F1-score across cross-validation folds, with stable variance and strong ROC–AUC, will be chosen as the final classifier for deployment.
 
-%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
-\section{Expected Outcomes}
-%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
-
-The expected outcomes of the project include:
-\begin{itemize}
-    \item A validated, interpretable pipeline for diabetes-risk classification.
-    \item Improved accuracy and generalization via ensemble learning.
-    \item Identification of the most influential predictors (e.g., glucose, HbA1c, BMI, age).
-    \item Reproducible and scalable methodology aligned with public health datasets.
-\end{itemize}
-
-The baseline already demonstrates high predictive potential.  
-Subsequent models will emphasize interpretability, fairness, and clinical plausibility alongside performance.
+\begin{table}[H]
+\centering
+\caption{Planned comparison of models (final metrics to be reported in the completed project).}
+\label{tab:model_comparison}
+\begin{tabular}{@{}lccccc@{}}
+\toprule
+\textbf{Model} & \textbf{Accuracy} & \textbf{Precision} & \textbf{Recall} & \textbf{F1} & \textbf{ROC–AUC} \\
+\midrule
+Majority Class & 0.600 & -- & -- & 0.750 & -- \\
+Logistic Regression & 0.861 & 0.88 & 0.90 & 0.885 & (TBD) \\
+Random Forest & (TBD) & (TBD) & (TBD) & (TBD) & (TBD) \\
+Gradient Boosting & (TBD) & (TBD) & (TBD) & (TBD) & (TBD) \\
+\bottomrule
+\end{tabular}
+\end{table}
 
 %%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
 \section{Timeline and Milestones}
 %%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
 
-The project spans November–December 2025 and follows the structure required by CMSE 492:
-
+The project spans November–December 2025 and follows the CMSE 492 structure:
 \begin{itemize}
-    \item \textbf{Weeks 10–11:} Data acquisition, cleaning, and exploratory analysis (completed).  
+    \item \textbf{Weeks 10–11:} Data acquisition, cleaning, and EDA (\textit{complete}).  
     \item \textbf{Weeks 11–12:} Model development and pipeline construction.  
-    \item \textbf{Week 13:} Model comparison, tuning, and evaluation.  
-    \item \textbf{Week 14:} Presentation preparation and interpretation analysis.  
-    \item \textbf{Week 15:} Final report and GitHub submission.  
+    \item \textbf{Week 13:} Model comparison and tuning.  
+    \item \textbf{Week 14:} Interpretation (feature importance, SHAP) and presentation prep.  
+    \item \textbf{Week 15:} Final report and GitHub submission (Dec 8).  
 \end{itemize}
+
+\noindent \textbf{Critical path:} finalize preprocessing → train → tune → evaluate → interpretability → report.  
+EDA and writing proceed in parallel; Week 13 buffer time covers re-training or data issues.
 
 \begin{figure}[H]
     \centering
     \includegraphics[width=0.9\linewidth]{figures/gantt_chart.png}
-    \caption{Planned project timeline and milestone sequence.}
+    \caption{Planned project timeline and milestone sequence (Nov–Dec 2025).}
     \label{fig:gantt_chart}
 \end{figure}
 
@@ -247,10 +262,10 @@ The project spans November–December 2025 and follows the structure required by
 \section{Conclusion}
 %%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
 
-The exploratory analysis confirmed data quality, meaningful correlations, and predictive potential.  
-The baseline logistic regression model achieved strong accuracy (0.861) and F1 (0.885), demonstrating that even a linear classifier can effectively capture risk patterns.  
-Future steps will focus on implementing ensemble methods, interpreting feature importances, and optimizing performance metrics such as AUC–ROC and recall.  
-This work establishes a robust foundation for building clinically meaningful predictive tools that support early diabetes detection and preventive health analytics.
+The exploratory analysis confirmed strong data quality and meaningful feature relationships.  
+Baseline Logistic Regression achieved 0.861 accuracy and 0.885 F1, validating the modeling approach.  
+The next phase will train and compare Random Forest and Gradient Boosting using identical pipelines, evaluate using F1 and ROC–AUC, and produce feature-importance interpretations via SHAP.  
+This project aims to deliver a reproducible, interpretable ML system supporting early diabetes detection and preventive healthcare analytics.
 
 %%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
 \section*{References}
@@ -259,11 +274,11 @@ This work establishes a robust foundation for building clinically meaningful pre
 \begin{thebibliography}{99}
 
 \bibitem{thalla2023}
-M.~K.~Thalla, ``Diabetes Health Indicators Dataset,'' \textit{Kaggle}, 2023.  
+M.~K.~Thalla, ``Diabetes Health Indicators Dataset,'' \textit{Kaggle}, 2023.\\
 \url{https://www.kaggle.com/datasets/mohankrishnathalla/diabetes-health-indicators-dataset}
 
 \bibitem{cdc2023}
-Centers for Disease Control and Prevention (CDC), ``Behavioral Risk Factor Surveillance System (BRFSS),'' 2023.  
+Centers for Disease Control and Prevention (CDC), ``Behavioral Risk Factor Surveillance System (BRFSS),'' 2023.\\
 \url{https://www.cdc.gov/brfss/}
 
 \end{thebibliography}
