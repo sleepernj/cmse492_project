@@ -6,32 +6,29 @@ The goal of this project is to use machine learning to identify the most importa
 
 ---
 
-## 📁 Repository Structure
+##  Repository Structure
+
 cmse492_project/
 ├── README.md                <- Project overview and documentation
 ├── .gitignore               <- Files and folders ignored by Git
-├── requirements.txt          <- Python dependencies for reproducibility
+├── requirements.txt         <- Python dependencies for reproducibility
 │
 ├── data/
-│   ├── raw/                  <- Original data files (unmodified)
-│   └── processed/            <- Cleaned and preprocessed data ready for modeling
+│   ├── raw/                 <- Original data files (unmodified)
+│   └── processed/           <- Cleaned and preprocessed data ready for modeling
 │
 ├── notebooks/
-│   └── exploratory/          <- Jupyter notebooks for exploratory data analysis (EDA)
+│   └── exploratory/         <- Jupyter notebooks for exploratory data analysis (EDA)
 │
 ├── src/
-│   ├── preprocessing/        <- Data cleaning and feature engineering scripts
-│   ├── models/               <- Machine learning model definitions and training scripts
-│   └── evaluation/           <- Model evaluation and metrics scripts
+│   ├── preprocessing/       <- Data cleaning and feature engineering scripts
+│   ├── models/              <- Machine learning model definitions and training scripts
+│   └── evaluation/          <- Model evaluation and metrics scripts
 │
-├── figures/                  <- Visualizations generated from notebooks and scripts
-└── docs/                     <- Reports, LaTeX proposal, and documentation files
+├── figures/                 <- Visualizations generated from notebooks and scripts
+└── docs/                    <- Reports, LaTeX proposal, and documentation files
 
----
-
----
-
-## ⚙️ Setup Instructions  
+##  Setup Instructions  
   1. Clone the repository
 git clone https://github.com/sleepernj/cmse492_project.git
 cd cmse492_project
