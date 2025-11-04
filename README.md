@@ -1,4 +1,3 @@
-# cmse492_project
 # Predicting Diabetes Risk from Health Indicators
 
 This project uses the *Diabetes Health Indicators Dataset* (originally collected by the U.S. Centers for Disease Control and Prevention through the Behavioral Risk Factor Surveillance System) to build machine learning models that predict whether an individual has diabetes based on demographic and lifestyle variables. The dataset contains over 200,000 survey responses and includes features such as Body Mass Index (BMI), physical activity, smoking status, age, and general health.  
@@ -6,8 +5,9 @@ The goal of this project is to use machine learning to identify the most importa
 
 ---
 
-##  Repository Structure
+## Repository Structure
 
+```
 cmse492_project/
 ├── README.md                <- Project overview and documentation
 ├── .gitignore               <- Files and folders ignored by Git
@@ -27,26 +27,47 @@ cmse492_project/
 │
 ├── figures/                 <- Visualizations generated from notebooks and scripts
 └── docs/                    <- Reports, LaTeX proposal, and documentation files
+```
 
-##  Setup Instructions  
-  1. Clone the repository
+---
+
+## Setup Instructions
+
+**1. Clone the repository**
+
+```bash
 git clone https://github.com/sleepernj/cmse492_project.git
 cd cmse492_project
-	2.	Install dependencies
+```
+
+**2. Install dependencies**
+
+```bash
 pip install -r requirements.txt
-  3. Launch Jupyter Notebook
+```
+
+**3. Launch Jupyter Notebook**
+
+```bash
 jupyter notebook
-Navigate to notebooks/exploratory/ to begin working with the dataset and initial analysis.
+```
 
-Project Overview
-	•	Dataset: Diabetes Health Indicators Dataset (Kaggle, derived from CDC BRFSS)
-	•	Task Type: Supervised Classification
-	•	Goal: Predict diabetes risk and identify key contributing health and lifestyle factors
-	•	Planned Models: Logistic Regression, Random Forest, and Neural Network (MLPClassifier)
-	•	Evaluation Metrics: Accuracy, Precision, Recall, F1-score, ROC-AUC
+Then navigate to `notebooks/exploratory/` to begin working with the dataset and initial analysis.
 
-  Author
+---
 
-Nick Sleeper
-Michigan State University – CMSE 492 (Fall 2025)
-GitHub: https://github.com/sleepernj
+## Project Overview
+
+- **Dataset:** Diabetes Health Indicators Dataset (Kaggle, derived from CDC BRFSS)  
+- **Task Type:** Supervised Classification  
+- **Goal:** Predict diabetes risk and identify key contributing health and lifestyle factors  
+- **Planned Models:** Logistic Regression, Random Forest, Neural Network (MLPClassifier)  
+- **Evaluation Metrics:** Accuracy, Precision, Recall, F1-Score, ROC-AUC  
+
+---
+
+## Author
+
+**Nick Sleeper**  
+Michigan State University – CMSE 492 (Fall 2025)  
+GitHub: [https://github.com/sleepernj](https://github.com/sleepernj)
