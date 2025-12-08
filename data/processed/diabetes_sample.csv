@@ -1,0 +1,21 @@
+age,gender,ethnicity,education_level,income_level,employment_status,smoking_status,alcohol_consumption_per_week,physical_activity_minutes_per_week,diet_score,sleep_hours_per_day,screen_time_hours_per_day,family_history_diabetes,hypertension_history,cardiovascular_history,bmi,waist_to_hip_ratio,systolic_bp,diastolic_bp,heart_rate,cholesterol_total,hdl_cholesterol,ldl_cholesterol,triglycerides,glucose_fasting,glucose_postprandial,insulin_level,hba1c,diabetes_risk_score,diabetes_stage,diagnosed_diabetes
+68,Male,Black,Highschool,Lower-Middle,Unemployed,Never,4,162,7.3,8.1,6.2,0,0,1,24.7,0.84,104,79,53,214,42,147,115,118,202,7.19,7.69,30.1,Type 2,1
+70,Male,White,Highschool,Middle,Employed,Never,1,107,6.8,6.8,7.4,1,0,0,23.4,0.83,118,85,65,167,46,78,92,120,153,14.11,6.37,48.0,Type 2,1
+59,Other,Hispanic,Highschool,Low,Retired,Never,6,250,4.6,5.4,6.4,0,1,0,27.3,0.89,132,72,62,193,75,103,109,100,152,7.97,6.26,24.2,Pre-Diabetes,0
+81,Male,White,Graduate,Lower-Middle,Employed,Never,1,150,5.4,8.0,5.5,0,0,0,28.3,0.9,140,76,57,189,62,102,159,134,205,12.83,7.92,34.8,Type 2,1
+70,Female,Hispanic,Postgraduate,Upper-Middle,Unemployed,Current,3,107,8.3,7.4,8.5,0,0,0,24.3,0.88,114,85,75,198,56,116,85,113,136,9.96,5.98,30.6,Pre-Diabetes,0
+50,Male,Black,No formal,Middle,Employed,Never,5,44,7.3,8.0,3.2,0,0,0,25.2,0.83,112,66,77,239,56,158,109,107,199,15.38,6.82,27.3,Type 2,1
+48,Female,White,Graduate,Middle,Employed,Current,1,117,5.0,7.2,5.9,0,0,0,26.6,0.86,120,81,74,166,42,90,159,114,154,2.0,6.52,28.9,Type 2,1
+23,Male,Asian,No formal,Middle,Employed,Never,2,67,6.4,6.8,0.7,1,1,0,28.3,0.89,118,76,76,186,51,101,240,138,187,15.96,7.31,38.4,Type 2,1
+42,Female,Hispanic,Highschool,Upper-Middle,Unemployed,Former,3,128,5.4,6.6,1.1,0,1,0,27.9,0.91,102,79,70,196,58,101,162,119,131,8.91,6.06,23.7,Pre-Diabetes,0
+62,Female,Black,No formal,Middle,Employed,Never,1,118,7.6,6.1,7.2,0,0,0,28.0,0.87,117,83,68,206,40,142,113,115,148,14.81,6.48,32.1,Type 2,1
+34,Male,Hispanic,Highschool,Upper-Middle,Employed,Never,1,62,4.6,5.2,3.1,0,1,0,27.7,0.9,119,80,74,206,39,131,145,112,209,4.35,7.13,27.3,Type 2,1
+32,Female,Hispanic,Graduate,Low,Employed,Current,2,124,4.0,7.4,9.5,0,0,0,30.4,0.88,101,59,65,154,43,93,134,111,107,4.7,5.76,26.9,Pre-Diabetes,0
+43,Female,White,Highschool,Low,Employed,Former,3,123,3.7,6.6,4.9,0,0,0,25.3,0.84,119,71,65,181,55,83,144,120,117,6.04,5.65,25.1,Pre-Diabetes,0
+64,Male,White,Highschool,Lower-Middle,Employed,Former,2,276,5.9,7.7,8.1,0,0,0,29.1,0.94,132,69,56,210,51,126,133,113,143,5.93,6.3,26.7,Pre-Diabetes,0
+18,Female,White,Highschool,Middle,Employed,Never,0,104,6.3,6.1,5.5,1,0,0,26.9,0.9,93,80,66,133,55,50,147,135,214,12.8,8.18,34.5,Type 2,1
+41,Male,Asian,Highschool,Middle,Employed,Never,2,141,8.9,6.9,2.4,0,0,0,26.4,0.88,98,65,82,172,50,74,113,108,158,2.36,6.05,21.3,Pre-Diabetes,0
+33,Female,Asian,Highschool,Middle,Employed,Never,4,126,7.5,6.5,6.7,1,0,0,26.0,0.88,101,82,61,172,46,97,137,105,128,2.0,6.02,38.2,Pre-Diabetes,0
+57,Female,White,Graduate,Lower-Middle,Employed,Never,0,79,3.6,7.2,6.2,0,0,0,33.9,0.92,120,76,66,237,66,143,172,126,158,10.39,6.44,34.7,Type 2,1
+48,Male,White,Highschool,Middle,Employed,Never,6,35,10.0,6.6,9.9,1,0,0,20.3,0.8,109,80,71,185,46,99,150,114,181,2.0,7.41,43.3,Type 2,1
+56,Male,White,Highschool,Lower-Middle,Unemployed,Never,3,224,5.9,5.0,4.9,1,0,0,23.0,0.79,122,81,60,148,52,62,74,114,153,9.22,6.4,38.0,Pre-Diabetes,0
