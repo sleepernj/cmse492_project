@@ -14,21 +14,20 @@ cmse492_project/
 ├── requirements.txt         <- Python dependencies for reproducibility
 │
 ├── data/
-│   ├── raw/                 <- Original data files (unmodified)
-│   └── processed/           <- Cleaned and preprocessed data ready for modeling
+│   ├── raw/                 <- Original dataset (diabetes_dataset.csv)
+│   └── processed/           <- Processed data (e.g., diabetes_sample.csv)
 │
 ├── notebooks/
-│   └── exploratory/         <- Jupyter notebook for exploratory data analysis (EDA) 
+│   └── final_project.ipynb  <- Final Jupyter notebook containing full analysis
 │
-├── folders                  <- stores project proposal
-|
-├── src/
-│   ├── preprocessing/       <- Data cleaning and feature engineering scripts
-│   ├── models/              <- Machine learning model definitions and training scripts
-│   └── evaluation/          <- Model evaluation and metrics scripts
+├── figures/                 <- Visualizations generated from the notebook (ROC, SHAP, EDA)
 │
-├── figures/                 <- Visualizations generated from notebooks and scripts
-└── docs/                    <- Reports, LaTeX proposal, and documentation files
+├── reports/                 <- LaTeX project report, compiled PDF, project proposal
+│   ├── Nick_Sleeper_CMSE492_FinalProject.tex
+│   ├── Sleeper_Nick_CMSE492_FinalProject.pdf
+│   └── Sleeper_Nick_CMSE492_ProjectProposal.pdf
+│
+└── structure.txt            <- Repository structure documentation
 ```
 
 ---
